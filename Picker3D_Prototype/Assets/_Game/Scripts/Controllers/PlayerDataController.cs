@@ -14,8 +14,8 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
 
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance.onGameStarted.Subscribe(OnGameStarted, status);
-            CoreSignals.Instance.onLevelCompleted.Subscribe(OnLevelCompleted, status);
+            CoreSignals.Instance?.onGameStarted.Subscribe(OnGameStarted, status);
+            CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
         }
 
         private void OnLevelCompleted()
@@ -42,7 +42,7 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
                     PlayerData = JsonUtility.FromJson<PlayerData>(jsonData);
             }
 
-            CoreSignals.Instance.onPlayerDataLoaded?.Invoke(PlayerData);
+            CoreSignals.Instance?.onPlayerDataLoaded?.Invoke(PlayerData);
         }
 
         //private void SavePlayerData()

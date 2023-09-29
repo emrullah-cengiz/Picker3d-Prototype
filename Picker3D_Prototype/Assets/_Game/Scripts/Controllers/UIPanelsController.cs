@@ -16,24 +16,24 @@ namespace Assets._Game.Scripts.Actors
 
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance.onGameStarted.Subscribe(OnGameStarted, status);
-            CoreSignals.Instance.onLevelStarted.Subscribe(OnLevelStarted, status);
+            CoreSignals.Instance?.onGameStarted.Subscribe(OnGameStarted, status);
+            CoreSignals.Instance?.onLevelStarted.Subscribe(OnLevelStarted, status);
 
-            UISignals.Instance.onPanelOpened.Subscribe(OpenPanel, status);
-            UISignals.Instance.onPanelClosed.Subscribe(ClosePanel, status);
+            UISignals.Instance?.onPanelOpened.Subscribe(OpenPanel, status);
+            UISignals.Instance?.onPanelClosed.Subscribe(ClosePanel, status);
         }
 
         private void Awake() => _openPanels = new();
 
         private void OnGameStarted()
         {
-            UISignals.Instance.onPanelOpened?.Invoke(UIPanel.LevelStart);
+            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.LevelStart);
         }
 
         private void OnLevelStarted()
         {
-            UISignals.Instance.onPanelClosed?.Invoke(UIPanel.LevelStart);
-            UISignals.Instance.onPanelOpened?.Invoke(UIPanel.GamePlay);
+            UISignals.Instance?.onPanelClosed?.Invoke(UIPanel.LevelStart);
+            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.GamePlay);
         }
 
         private void OpenPanel(UIPanel uiPanel)

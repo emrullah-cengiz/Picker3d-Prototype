@@ -1,10 +1,10 @@
-﻿using Assets._Game.Scripts.Enums;
-using System;
+﻿using Assets._Game.Scripts.Abstracts;
+using Assets._Game.Scripts.Enums;
 using UnityEngine.Events;
 
 namespace Assets._Game.Scripts.Signals
 {
-    public class UISignals : MonoSingleton<UISignals>
+    public class UISignals : SignalGroup<UISignals>
     {
         public UnityEvent<UIPanel> onPanelOpened;
         public UnityEvent<UIPanel> onPanelClosed;

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public abstract class Actor<T> : MonoBehaviour where T : Manager<T>
 {
     protected T Manager;

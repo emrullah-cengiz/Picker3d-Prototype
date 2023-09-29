@@ -16,9 +16,9 @@ namespace Assets._Game.Scripts.Controllers
 
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance.onPlayerDataLoaded.Subscribe(OnPlayerDataLoaded, status);
-            CoreSignals.Instance.onLevelStarted.Subscribe(StartLevel, status);
-            CoreSignals.Instance.onLevelCompleted.Subscribe(OnLevelCompleted, status);
+            CoreSignals.Instance?.onPlayerDataLoaded.Subscribe(OnPlayerDataLoaded, status);
+            CoreSignals.Instance?.onLevelStarted.Subscribe(StartLevel, status);
+            CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
         }
 
         private void OnPlayerDataLoaded(PlayerData playerData)

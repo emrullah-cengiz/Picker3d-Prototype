@@ -1,21 +1,22 @@
-﻿using Assets._Game.Scripts.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using Assets._Game.Scripts.Abstracts;
+using Assets._Game.Scripts.Data;
 using UnityEngine.Events;
 
 namespace Assets._Game.Scripts.Signals
 {
-    public class CoreSignals : MonoSingleton<CoreSignals>
+    public class CoreSignals : SignalGroup<CoreSignals>
     {
         public UnityEvent onGameStarted;
         public UnityEvent onLevelStarted;
         public UnityEvent onLevelCompleted;
+        public UnityEvent onLevelFailed;
 
         public UnityEvent<PlayerData> onPlayerDataLoaded;
+
+        public UnityEvent onReachedToPool;
+        public UnityEvent onPoolClosed;
+
+        public UnityEvent onReachedToFinishArea;
 
     }
 }

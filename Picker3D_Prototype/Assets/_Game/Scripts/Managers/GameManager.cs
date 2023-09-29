@@ -7,9 +7,9 @@ namespace Assets._Game.Scripts.Managers
     public class GameManager : Manager<GameManager>
     {
 
-        private void Awake()
+        private void Start()
         {
-            CoreSignals.Instance.onGameStarted?.Invoke();
+            CoreSignals.Instance?.onGameStarted?.Invoke();
         }
     }
 }

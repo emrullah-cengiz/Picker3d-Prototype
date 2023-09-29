@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(-3)]
 public abstract class Manager<T> : MonoBehaviour where T : Component
 {
     protected virtual void OnEnable()
