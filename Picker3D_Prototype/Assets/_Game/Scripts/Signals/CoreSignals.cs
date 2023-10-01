@@ -7,9 +7,12 @@ namespace Assets._Game.Scripts.Signals
     public class CoreSignals : SignalGroup<CoreSignals>
     {
         public UnityEvent onGameStarted;
+
         public UnityEvent onLevelStarted;
-        public UnityEvent onLevelCompleted;
-        public UnityEvent onLevelFailed;
+        public UnityEvent<bool> onLevelCompleted;
+
+        public UnityEvent onLevelSpawned;
+
 
         public UnityEvent<PlayerData> onPlayerDataLoaded;
 

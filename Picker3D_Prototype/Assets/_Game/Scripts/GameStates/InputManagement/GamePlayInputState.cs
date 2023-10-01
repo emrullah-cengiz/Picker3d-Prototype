@@ -32,24 +32,30 @@ namespace Assets._Game.Scripts.GameStates.InputManagement
 
         public override void OnUpdate()
         {
-            ///TODO: Kaldır
-            _movementSettings = GameSettings.Instance.movementSettings;
-
-
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
-                _mouseDelta = _firstMousePosition - Input.mousePosition;
-                //_xMovementData = _mouseDelta.x * _movementSettings.XMovementSpeed;
+                _isTouching = true;
+                _firstMousePosition = Input.mousePosition;
+            }
 
-                //_xMovementData = Mathf.SmoothDamp(_xMovementData, 0f, ref _currentVelocity, _movementSettings.XSmoothTime);
+            if (_isTouching)
+            {
+                _mouseDelta = Input.mousePosition - _firstMousePosition;
 
+                Debug.Log(_mouseDelta);
+               
                 GamePlayInputSignals.Instance?.onMouseDragged?.Invoke(_mouseDelta.x);
+
+                _firstMousePosition = Input.mousePosition;
             }
 
             if (Input.GetMouseButtonUp(0))
             {
+                _isTouching = false;
                 _currentVelocity = 0;
                 _mouseDelta = Vector3.zero;
+
+                GamePlayInputSignals.Instance?.onMouseDragged?.Invoke(0);
             }
         }
     }

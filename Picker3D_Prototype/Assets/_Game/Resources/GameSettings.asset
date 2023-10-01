@@ -19,6 +19,6 @@ MonoBehaviour:
   maxLevelNumber: 10
   playerDataFileName: PlayerData
   movementSettings:
-    ZMovementSpeed: 1
-    XMovementSpeed: 1
-    XSmoothTime: 1
+    ZMovementSpeed: 3
+    XMovementSpeed: 0.1
+    XClamp: 2

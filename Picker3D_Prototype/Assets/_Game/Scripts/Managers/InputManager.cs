@@ -16,7 +16,6 @@ namespace Assets._Game.Scripts.Managers
             CoreSignals.Instance?.onGameStarted.Subscribe(OnGameStarted, status);
             CoreSignals.Instance?.onLevelStarted.Subscribe(OnLevelStarted, status);
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
-            CoreSignals.Instance?.onLevelFailed.Subscribe(OnLevelFailed, status);
         }
 
         private void Awake()
@@ -39,12 +38,7 @@ namespace Assets._Game.Scripts.Managers
             _stateMachineForInputs.ChangeState(new GamePlayInputState(_stateMachineForInputs));
         }
 
-        private void OnLevelCompleted()
-        {
-            _stateMachineForInputs.ChangeState(null);
-        }
-
-        private void OnLevelFailed()
+        private void OnLevelCompleted(bool isSuccess)
         {
             _stateMachineForInputs.ChangeState(null);
         }

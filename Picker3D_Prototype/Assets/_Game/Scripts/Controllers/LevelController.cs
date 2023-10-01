@@ -36,9 +36,11 @@ namespace Assets._Game.Scripts.Controllers
             var level = Resources.Load<Transform>(levelPath);
 
             Instantiate(level, _levelContainer);
+
+            CoreSignals.Instance.onLevelSpawned?.Invoke();
         }
 
-        private void OnLevelCompleted()
+        private void OnLevelCompleted(bool isSuccess)
         {
 
         }

@@ -3,11 +3,11 @@ using UnityEngine;
 [DefaultExecutionOrder(-1)]
 public abstract class Actor<T> : MonoBehaviour where T : Manager<T>
 {
-    protected T Manager;
+    //protected T Manager;
 
     protected virtual void OnEnable()
     {
-        Manager = FindObjectOfType<T>();
+        //Manager = FindObjectOfType<T>();
 
         ConfigureSubscriptions(true);
     }

@@ -18,7 +18,7 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
         }
 
-        private void OnLevelCompleted()
+        private void OnLevelCompleted(bool isSuccess)
         {
             //PlayerData.LastCompletedLevelNumber = 
         }

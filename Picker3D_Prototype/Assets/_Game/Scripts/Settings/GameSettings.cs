@@ -25,5 +25,5 @@ public struct MovementSettings
     public float ZMovementSpeed;
     public float XMovementSpeed;
 
-    public float XSmoothTime;
+    public float XClamp;
 }
