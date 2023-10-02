@@ -1,10 +1,12 @@
-﻿using Assets._Game.Scripts.Enums;
+﻿using Assets._Game.Scripts.Data;
+using Assets._Game.Scripts.Enums;
 using Assets._Game.Scripts.Managers;
 using Assets._Game.Scripts.Signals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets._Game.Scripts.Actors
 {
@@ -16,8 +18,9 @@ namespace Assets._Game.Scripts.Actors
 
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance?.onGameStarted.Subscribe(OnGameStarted, status);
+            CoreSignals.Instance?.onLevelSpawned.Subscribe(OnLevelSpawned, status);
             CoreSignals.Instance?.onLevelStarted.Subscribe(OnLevelStarted, status);
+            CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
 
             UISignals.Instance?.onPanelOpened.Subscribe(OpenPanel, status);
             UISignals.Instance?.onPanelClosed.Subscribe(ClosePanel, status);
@@ -25,31 +28,31 @@ namespace Assets._Game.Scripts.Actors
 
         private void Awake() => _openPanels = new();
 
-        private void OnGameStarted()
+        private void OnLevelSpawned(LevelData levelData)
         {
-            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.LevelStart);
+            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.LevelStart, true);
         }
 
         private void OnLevelStarted()
         {
-            UISignals.Instance?.onPanelClosed?.Invoke(UIPanel.LevelStart);
-            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.GamePlay);
+            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.GamePlay, true);
         }
 
-        private void OpenPanel(UIPanel uiPanel)
+        private void OnLevelCompleted(uint levelNum, bool status)
+        {
+            UISignals.Instance?.onPanelOpened?.Invoke(status ? UIPanel.Success : UIPanel.Fail, true);
+        }
+
+        private void OpenPanel(UIPanel uiPanel, bool closeCurrent = true)
         {
             if (_openPanels.ContainsKey(uiPanel))
                 return;
 
+            if (closeCurrent)
+                while(_openPanels.Count > 0)
+                    UISignals.Instance?.onPanelClosed?.Invoke(_openPanels.ElementAt(0).Key);
+
             var gameSettings = GameSettings.Instance;
-
-            //if (closeCurrents)
-            //{
-            //    foreach (var panel in _openPanels)
-            //        Destroy(panel.Value);
-
-            //    _openPanels.Clear();
-            //}
 
             string panelPrefabPath = $"{gameSettings.uiPanelsResourcePath}/" +
                                      $"{string.Format(gameSettings.uiPanelPrefabNameFormat, uiPanel.ToString())}";

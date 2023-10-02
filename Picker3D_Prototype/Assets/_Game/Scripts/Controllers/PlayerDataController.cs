@@ -18,9 +18,9 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
         }
 
-        private void OnLevelCompleted(bool isSuccess)
+        private void OnLevelCompleted(uint levelNum, bool isSuccess)
         {
-            //PlayerData.LastCompletedLevelNumber = 
+            PlayerData.LastCompletedLevelNumber = levelNum;
         }
 
         private void OnGameStarted()
@@ -42,7 +42,7 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
                     PlayerData = JsonUtility.FromJson<PlayerData>(jsonData);
             }
 
-            CoreSignals.Instance?.onPlayerDataLoaded?.Invoke(PlayerData);
+            CoreSignals.Instance?.onPlayerDataLoaded?.Invoke();
         }
 
         //private void SavePlayerData()

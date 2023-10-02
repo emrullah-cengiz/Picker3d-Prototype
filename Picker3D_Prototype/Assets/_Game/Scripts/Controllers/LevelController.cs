@@ -2,7 +2,9 @@
 using Assets._Game.Scripts.Data;
 using Assets._Game.Scripts.Managers;
 using Assets._Game.Scripts.Signals;
+using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -10,61 +12,65 @@ namespace Assets._Game.Scripts.Controllers
 {
     public class LevelController : Actor<GameManager>
     {
-        [SerializeField] private Transform _levelContainer;
+        [SerializeField] private PlayerDataController _playerDataController;
 
+        [SerializeField] private Transform _levelContainer;
+        [SerializeField] private GameObject _levelSuccessParticlesContainer;
+
+        private GameObject _currentLevelObject;
         private uint _currentLevelNumber;
 
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance?.onPlayerDataLoaded.Subscribe(OnPlayerDataLoaded, status);
+            CoreSignals.Instance?.onPlayerDataLoaded.Subscribe(GoToNextLevel, status);
+            CoreSignals.Instance?.onNextLevelButtonClick.Subscribe(GoToNextLevel, status);
 
             //CoreSignals.Instance?.onLevelSpawned.Subscribe(OnLevelSpawned, status);
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
+            CoreSignals.Instance?.onRetryButtonClick.Subscribe(ResetLevel, status);
         }
 
-        private void OnPlayerDataLoaded(PlayerData playerData)
+        private void GoToNextLevel()
         {
-            _currentLevelNumber = GetNextLevelNumberByPlayerData(playerData);
+            _currentLevelNumber = GetNextLevelNumber(current: _playerDataController.PlayerData.LastCompletedLevelNumber);
 
-            SpawnCurrentLevel();
+            StartCoroutine(Helpers.ExecuteOnEndOfFrame(() => SpawnCurrentLevel()));
         }
 
         private void SpawnCurrentLevel()
         {
+            uint levelNum = GetNextLevelNumber(current: _currentLevelNumber);
+
             string levelPath = Path.Combine(GameSettings.Instance.levelPrefabsResourcePath,
-                                          string.Format(GameSettings.Instance.levelPrefabNameFormat, _currentLevelNumber));
+                                          string.Format(GameSettings.Instance.levelPrefabNameFormat, levelNum));
 
             string levelDataPath = Path.Combine(GameSettings.Instance.levelDataResourcePath,
-                                          string.Format(GameSettings.Instance.levelDataNameFormat, _currentLevelNumber));
+                                          string.Format(GameSettings.Instance.levelDataNameFormat, levelNum));
 
-
-            var level = Resources.Load<Transform>(levelPath);
-            Instantiate(level, _levelContainer);
+            var level = Resources.Load<GameObject>(levelPath);
+            _currentLevelObject = Instantiate(level, _levelContainer);
 
             var levelData = Resources.Load<LevelData>(levelDataPath);
 
             CoreSignals.Instance.onLevelSpawned?.Invoke(levelData);
         }
 
+        private void OnLevelCompleted(uint levelNum, bool isSuccess) =>
+            _levelSuccessParticlesContainer.SetActive(isSuccess);
 
-        //private void OnLevelSpawned(LevelData levelData)
-        //{
-
-        //}
-
-        private void OnLevelCompleted(bool isSuccess)
+        private void ResetLevel()
         {
+            Destroy(_currentLevelObject);
 
+            StartCoroutine(Helpers.ExecuteOnEndOfFrame(() => SpawnCurrentLevel()));
         }
 
-        private uint GetNextLevelNumberByPlayerData(PlayerData playerData)
+        private uint GetNextLevelNumber(uint current)
         {
             uint maxLevelNumber = GameSettings.Instance.maxLevelNumber;
 
-            uint lastlevelNumber = playerData.LastCompletedLevelNumber;
-
-            return !playerData.IsReachedToMaxLevel ? lastlevelNumber + 1
-                                                   : (uint)(UnityEngine.Random.Range(0, maxLevelNumber) + 1);
+            return current > maxLevelNumber ?
+                   (uint)(UnityEngine.Random.Range(0, maxLevelNumber) + 1) : _currentLevelNumber + 1;
         }
 
     }

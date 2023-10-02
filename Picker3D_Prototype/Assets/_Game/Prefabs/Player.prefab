@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1096535365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1096535366}
+  m_Layer: 0
+  m_Name: OverlapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1096535366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096535365}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.404, z: 0.216}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3812187784189690371}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8218931506618420216
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,9 +72,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3812187784189690371}
-  - component: {fileID: 7368452045102050684}
   - component: {fileID: 1357357051}
   - component: {fileID: 1357357052}
+  - component: {fileID: 7368452045102050684}
+  - component: {fileID: 1357357053}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -64,22 +96,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4449300753022554232}
+  - {fileID: 1096535366}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7368452045102050684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9092906208705766271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71617b6976a12ab4b92fc28a456016b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRb: {fileID: 1357357051}
 --- !u!54 &1357357051
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,6 +129,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4477603, y: 0.32559547, z: 1.5859587}
   m_Center: {x: 0.008291841, y: -0.55279064, z: 0.1658374}
+--- !u!114 &7368452045102050684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092906208705766271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71617b6976a12ab4b92fc28a456016b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRb: {fileID: 1357357051}
+--- !u!114 &1357357053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092906208705766271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b31bc2236bbdc54bb8e28d9dc57d9b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickerOverlapRadius: 0.8
+  _pickerOverlapPoint: {fileID: 1096535366}
 --- !u!1001 &3943926774799775503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,6 +167,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960804418759576926, guid: e15312b92994dc24d9f15310cb664ba9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1582235
       objectReference: {fileID: 0}
     - target: {fileID: 6960804418759576926, guid: e15312b92994dc24d9f15310cb664ba9,
         type: 3}

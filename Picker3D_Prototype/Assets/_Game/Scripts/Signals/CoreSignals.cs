@@ -9,12 +9,14 @@ namespace Assets._Game.Scripts.Signals
         public UnityEvent onGameStarted;
 
         public UnityEvent onLevelStarted;
-        public UnityEvent<bool> onLevelCompleted;
+        public UnityEvent<uint, bool> onLevelCompleted;
 
         public UnityEvent<LevelData> onLevelSpawned;
 
+        public UnityEvent onNextLevelButtonClick;
+        public UnityEvent onRetryButtonClick;
 
-        public UnityEvent<PlayerData> onPlayerDataLoaded;
+        public UnityEvent onPlayerDataLoaded;
 
         public UnityEvent onReachedToPool;
         public UnityEvent onPoolClosed;

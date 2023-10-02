@@ -6,7 +6,7 @@ namespace Assets._Game.Scripts.Signals
 {
     public class UISignals : SignalGroup<UISignals>
     {
-        public UnityEvent<UIPanel> onPanelOpened;
+        public UnityEvent<UIPanel, bool> onPanelOpened;
         public UnityEvent<UIPanel> onPanelClosed;
 
         //public UnityEvent onLevelMenuOpened;

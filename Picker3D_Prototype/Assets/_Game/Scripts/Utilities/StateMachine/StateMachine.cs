@@ -8,7 +8,7 @@ namespace Assets._Game.Scripts.StateMachine
 {
     public class StateMachine<T> where T : IState
     {
-        private T? currentState;
+        private T currentState;
 
         public void ChangeState(T newState)
         {

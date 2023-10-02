@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets._Game.Scripts.Data
 {
-    public struct PlayerData
+    public class PlayerData
     {
         public uint LastCompletedLevelNumber;
         public uint Score;

@@ -17,6 +17,8 @@ namespace Assets._Game.Scripts.Actors
 
         protected override void ConfigureSubscriptions(bool status)
         {
+            CoreSignals.Instance?.onLevelSpawned.Subscribe(OnLevelSpawned, status);
+
             CoreSignals.Instance?.onLevelStarted.Subscribe(OnLevelStarted, status);
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
 
@@ -31,13 +33,21 @@ namespace Assets._Game.Scripts.Actors
             _movementSettings = GameSettings.Instance.movementSettings;
         }
 
-        private void OnLevelStarted() => isReadyForMoveFwd = true;
-        private void OnLevelCompleted(bool isSuccess) => isReadyForMoveFwd = false;
+        private void OnLevelSpawned(LevelData arg0)
+        {
+            SetMovability(false);
 
-        private void OnReachedToPool() => isReadyForMoveFwd = false;
-        private void OnPoolClosed() => isReadyForMoveFwd = true;
+            playerRb.position = Vector3.zero;
+        }
+
+        private void OnLevelStarted() => SetMovability(true);
+        private void OnLevelCompleted(uint levelNum, bool isSuccess) => SetMovability(false);
+        private void OnReachedToPool() => SetMovability(false);
+        private void OnPoolClosed() => SetMovability(true);
 
         private void OnMouseDragged(float x) => xMouseDelta = x;
+
+        private void SetMovability(bool status) => isReadyForMoveFwd = status;
 
         private void FixedUpdate()
         {

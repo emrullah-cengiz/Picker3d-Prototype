@@ -22,8 +22,13 @@ MonoBehaviour:
   playerTag: Player
   playerDataFileName: PlayerData
   movementSettings:
-    ZMovementSpeed: 3
+    ZMovementSpeed: 5
     XMovementSpeed: 0.1
     XClamp: 2
   poolTag: Pool
+  poolWaitDuration: 2.7
+  collectableBallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   collectableBallTag: Ball
+  ballForceValue: {x: 0, y: 10, z: 15}

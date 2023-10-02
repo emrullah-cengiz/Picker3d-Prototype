@@ -14,19 +14,22 @@ namespace Assets._Game.Scripts.Controllers
     {
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance.onLevelSpawned.Subscribe(SetupPools, status);
+            CoreSignals.Instance?.onLevelSpawned.Subscribe(SetupPools, status);
         }
 
         private void SetupPools(LevelData levelData)
         {
             var poolGameObjects = GameObject.FindGameObjectsWithTag(GameSettings.Instance.poolTag);
 
-            for (int i = 0; i < poolGameObjects.Length; i++)
+            for (int i = 0; i < levelData.Pools.Count; i++)
             {
+                var poolData = levelData.Pools[i];
+
+                if (poolGameObjects.Length <= i) break;
+
                 var pool = poolGameObjects[i].GetComponent<PoolObject>();
 
-                if (levelData.Pools.Count >= i + 1)
-                    pool.Setup(levelData.Pools[i + 1]);
+                pool.Setup(poolData);
             }
         }
     }

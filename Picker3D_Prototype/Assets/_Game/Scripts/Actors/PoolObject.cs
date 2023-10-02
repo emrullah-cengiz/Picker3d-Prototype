@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -89,6 +90,16 @@ public class PoolObject : Actor<GameManager>
 
         sequence.OnComplete(() => 
                 CoreSignals.Instance.onPoolClosed?.Invoke() );
+
+        if(!CheckCompletion())
+        {
+            sequence.Pause();
+            CoreSignals.Instance.onLevelCompleted?.Invoke(false);
+        }
+    }
+
+    private bool CheckCompletion() {
+        return _collectedBallCount >= Data.RequiredBallCount;
     }
 
 }

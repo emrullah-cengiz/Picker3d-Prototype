@@ -29,7 +29,9 @@ public class GameSettings : SingletonScriptableObject<GameSettings>
     public float poolWaitDuration = 3;
 
     [Header("Collectables")]
+    public LayerMask collectableBallLayer;
     public string collectableBallTag = "CollectableBall";
+    public Vector3 ballForceValue = new(0, 8, 10f);
 }
 
 [Serializable]
