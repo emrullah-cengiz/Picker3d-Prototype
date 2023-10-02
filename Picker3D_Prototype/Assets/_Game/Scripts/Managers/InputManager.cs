@@ -40,7 +40,7 @@ namespace Assets._Game.Scripts.Managers
             _stateMachineForInputs.ChangeState(new GamePlayInputState(_stateMachineForInputs));
         }
 
-        private void OnLevelCompleted(uint levelNum, bool isSuccess)
+        private void OnLevelCompleted(LevelCompletionInfo levelCompletionData)
         {
             _stateMachineForInputs.ChangeState(null);
         }

@@ -42,8 +42,6 @@ namespace Assets._Game.Scripts.GameStates.InputManagement
             {
                 _mouseDelta = Input.mousePosition - _firstMousePosition;
 
-                Debug.Log(_mouseDelta);
-               
                 GamePlayInputSignals.Instance?.onMouseDragged?.Invoke(_mouseDelta.x);
 
                 _firstMousePosition = Input.mousePosition;

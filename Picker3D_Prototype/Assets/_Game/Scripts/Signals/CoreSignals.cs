@@ -9,7 +9,7 @@ namespace Assets._Game.Scripts.Signals
         public UnityEvent onGameStarted;
 
         public UnityEvent onLevelStarted;
-        public UnityEvent<uint, bool> onLevelCompleted;
+        public UnityEvent<LevelCompletionInfo> onLevelCompleted;
 
         public UnityEvent<LevelData> onLevelSpawned;
 
@@ -19,9 +19,12 @@ namespace Assets._Game.Scripts.Signals
         public UnityEvent onPlayerDataLoaded;
 
         public UnityEvent onReachedToPool;
-        public UnityEvent onPoolClosed;
+        public UnityEvent<bool> onPoolClosed;
 
         public UnityEvent onReachedToFinishArea;
+
+        public UnityEvent<bool> onPoolInteractedWithBall;
+
 
     }
 }

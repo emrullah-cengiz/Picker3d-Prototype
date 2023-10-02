@@ -28,20 +28,10 @@ namespace Assets._Game.Scripts.Actors
 
         private void Awake() => _openPanels = new();
 
-        private void OnLevelSpawned(LevelData levelData)
-        {
-            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.LevelStart, true);
-        }
-
-        private void OnLevelStarted()
-        {
-            UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.GamePlay, true);
-        }
-
-        private void OnLevelCompleted(uint levelNum, bool status)
-        {
-            UISignals.Instance?.onPanelOpened?.Invoke(status ? UIPanel.Success : UIPanel.Fail, true);
-        }
+        private void OnLevelStarted() => UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.GamePlay, true);
+        private void OnLevelSpawned(LevelData levelData) => UISignals.Instance?.onPanelOpened?.Invoke(UIPanel.LevelStart, true);
+        private void OnLevelCompleted(LevelCompletionInfo levelCompletionData) => 
+                            UISignals.Instance?.onPanelOpened?.Invoke(levelCompletionData.IsSuccess ? UIPanel.Success : UIPanel.Fail, true);
 
         private void OpenPanel(UIPanel uiPanel, bool closeCurrent = true)
         {

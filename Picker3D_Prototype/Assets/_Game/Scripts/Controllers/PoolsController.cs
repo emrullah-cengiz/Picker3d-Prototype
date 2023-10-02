@@ -19,13 +19,14 @@ namespace Assets._Game.Scripts.Controllers
 
         private void SetupPools(LevelData levelData)
         {
-            var poolGameObjects = GameObject.FindGameObjectsWithTag(GameSettings.Instance.poolTag);
+            var poolGameObjects = GameObject.FindGameObjectsWithTag(GameSettings.Instance.poolTag)
+                                            .OrderBy(x => x.transform.position.z).ToList();
 
             for (int i = 0; i < levelData.Pools.Count; i++)
             {
                 var poolData = levelData.Pools[i];
 
-                if (poolGameObjects.Length <= i) break;
+                if (poolGameObjects.Count <= i) break;
 
                 var pool = poolGameObjects[i].GetComponent<PoolObject>();
 

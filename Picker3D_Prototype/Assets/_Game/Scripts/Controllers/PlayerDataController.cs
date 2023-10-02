@@ -18,9 +18,20 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
         }
 
-        private void OnLevelCompleted(uint levelNum, bool isSuccess)
+        private void OnLevelCompleted(LevelCompletionInfo levelCompletionData)
         {
-            PlayerData.LastCompletedLevelNumber = levelNum;
+            if (!levelCompletionData.IsSuccess)
+                return;
+
+            PlayerData = new()
+            {
+                LastCompletedLevelNumber = levelCompletionData.LevelNumber,
+                Score = PlayerData.Score + levelCompletionData.Score,
+                IsReachedToMaxLevel = !PlayerData.IsReachedToMaxLevel &&
+                                            GameSettings.Instance.maxLevelNumber <= levelCompletionData.LevelNumber
+            };
+
+            SavePlayerData();
         }
 
         private void OnGameStarted()
@@ -45,13 +56,13 @@ namespace Assets._Game.Scripts.Controllers.PanelControllers
             CoreSignals.Instance?.onPlayerDataLoaded?.Invoke();
         }
 
-        //private void SavePlayerData()
-        //{
-        //    string playerDataPath = Path.Combine(Application.persistentDataPath, GameSettings.Instance.playerDataFileName);
+        private void SavePlayerData()
+        {
+            string playerDataPath = Path.Combine(Application.persistentDataPath, GameSettings.Instance.playerDataFileName);
 
-        //    string playerDataJson = JsonUtility.ToJson(PlayerData);
+            string playerDataJson = JsonUtility.ToJson(PlayerData);
 
-        //    File.WriteAllText(playerDataPath, playerDataJson);
-        //}
+            File.WriteAllText(playerDataPath, playerDataJson);
+        }
     }
 }

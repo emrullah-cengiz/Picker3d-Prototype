@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bee739403ffb84bb3d41963b48c468, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
+  LevelNumber: 1
   Pools:
-  - RequiredBallCount: 5
-  - RequiredBallCount: 7
+  - RequiredBallCount: 8
   - RequiredBallCount: 10

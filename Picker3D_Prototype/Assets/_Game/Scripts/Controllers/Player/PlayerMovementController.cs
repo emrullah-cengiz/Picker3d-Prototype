@@ -11,7 +11,7 @@ namespace Assets._Game.Scripts.Actors
         [SerializeField] private Rigidbody playerRb;
 
         private float xMouseDelta;
-        private bool isReadyForMoveFwd;
+        private bool isAvailableForMoveFwd;
 
         MovementSettings _movementSettings;
 
@@ -41,13 +41,13 @@ namespace Assets._Game.Scripts.Actors
         }
 
         private void OnLevelStarted() => SetMovability(true);
-        private void OnLevelCompleted(uint levelNum, bool isSuccess) => SetMovability(false);
+        private void OnLevelCompleted(LevelCompletionInfo levelCompletionData) => SetMovability(false);
         private void OnReachedToPool() => SetMovability(false);
-        private void OnPoolClosed() => SetMovability(true);
+        private void OnPoolClosed(bool isFilled) => SetMovability(isFilled);
 
         private void OnMouseDragged(float x) => xMouseDelta = x;
 
-        private void SetMovability(bool status) => isReadyForMoveFwd = status;
+        private void SetMovability(bool status) => isAvailableForMoveFwd = status;
 
         private void FixedUpdate()
         {
@@ -55,7 +55,7 @@ namespace Assets._Game.Scripts.Actors
 
             newPosition.x = Mathf.Clamp(newPosition.x, -_movementSettings.XClamp, _movementSettings.XClamp);
 
-            if (isReadyForMoveFwd)
+            if (isAvailableForMoveFwd)
                 newPosition.z += _movementSettings.ZMovementSpeed * Time.fixedDeltaTime;
 
             playerRb.MovePosition(newPosition);

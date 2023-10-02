@@ -70,6 +70,8 @@ public class PoolObject : Actor<GameManager>
 
         _collectedBallCount += (uint)(status ? 1 : -1);
 
+        CoreSignals.Instance.onPoolInteractedWithBall?.Invoke(status);
+
         UpdateText();
     }
 
@@ -80,6 +82,12 @@ public class PoolObject : Actor<GameManager>
 
     private void Close()
     {
+        if (!CheckCompletion())
+        {
+            CoreSignals.Instance.onPoolClosed?.Invoke(false);
+            return;
+        }
+
         Sequence sequence = DOTween.Sequence();
 
         sequence.Join(_ground.DOLocalMoveY(-.3f, .5f))
@@ -89,13 +97,7 @@ public class PoolObject : Actor<GameManager>
             sequence.Join(barrier.DOLocalRotate(Vector3.forward * 70, .5f, RotateMode.LocalAxisAdd));
 
         sequence.OnComplete(() => 
-                CoreSignals.Instance.onPoolClosed?.Invoke() );
-
-        if(!CheckCompletion())
-        {
-            sequence.Pause();
-            CoreSignals.Instance.onLevelCompleted?.Invoke(false);
-        }
+                CoreSignals.Instance.onPoolClosed?.Invoke(true) );
     }
 
     private bool CheckCompletion() {

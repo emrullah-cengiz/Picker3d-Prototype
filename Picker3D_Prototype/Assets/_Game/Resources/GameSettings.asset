@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPanelsResourcePath: Prefabs/UI/UIPanels
   uiPanelPrefabNameFormat: Panel_{0}
-  levelPrefabsResourcePath: Prefabs/Levels
+  filledPoolIndicatorColor: {r: 0.9960785, g: 0.6784314, b: 0, a: 1}
+  poolIndicatorUiPrefab: {fileID: 1407356276199369026, guid: f39ea9b63c136e847ab7c14aa0919f20,
+    type: 3}
+  levelPrefabsResourcePath: Levels
   levelPrefabNameFormat: Level_{0}
   levelDataResourcePath: Data/Levels
   levelDataNameFormat: Level_{0}
-  maxLevelNumber: 10
+  maxLevelNumber: 4
   playerTag: Player
   playerDataFileName: PlayerData
   movementSettings:
@@ -31,4 +34,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   collectableBallTag: Ball
-  ballForceValue: {x: 0, y: 10, z: 15}
+  ballForceValue: {x: 0, y: 8, z: 10}

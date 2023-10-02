@@ -2,6 +2,7 @@ using Assets._Game.Scripts.Actors;
 using Assets.Scripts.Abstracts;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = nameof(GameSettings), menuName = "Settings/" + nameof(GameSettings))]
 public class GameSettings : SingletonScriptableObject<GameSettings>
@@ -9,6 +10,8 @@ public class GameSettings : SingletonScriptableObject<GameSettings>
     [Header("UI")]
     public string uiPanelsResourcePath = "Prefabs/UI/UIPanels";
     public string uiPanelPrefabNameFormat = "Panel_{0}";
+    public Color filledPoolIndicatorColor;
+    public Image poolIndicatorUiPrefab;
 
     [Header("Levels")]
     public string levelPrefabsResourcePath = "Prefabs/Levels";

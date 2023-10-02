@@ -10,7 +10,7 @@ namespace Assets._Game.Scripts.Data
     [CreateAssetMenu(fileName = "Level_", menuName = "Data/" + nameof(LevelData))]
     public class LevelData : ScriptableObject
     {
-        //public uint LevelNumber;
+        public uint LevelNumber;
         public List<PoolData> Pools;
     }
 
