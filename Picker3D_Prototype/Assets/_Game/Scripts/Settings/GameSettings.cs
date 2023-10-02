@@ -6,17 +6,30 @@ using UnityEngine;
 [CreateAssetMenu(fileName = nameof(GameSettings), menuName = "Settings/" + nameof(GameSettings))]
 public class GameSettings : SingletonScriptableObject<GameSettings>
 {
-    [Header("Assets")]
+    [Header("UI")]
     public string uiPanelsResourcePath = "Prefabs/UI/UIPanels";
     public string uiPanelPrefabNameFormat = "Panel_{0}";
 
+    [Header("Levels")]
     public string levelPrefabsResourcePath = "Prefabs/Levels";
     public string levelPrefabNameFormat = "Level_{0}";
 
-    public uint maxLevelNumber = 10;
-    public string playerDataFileName = "PlayerData";
+    public string levelDataResourcePath = "Data/Levels";
+    public string levelDataNameFormat = "Level_{0}";
 
+    public uint maxLevelNumber = 10;
+
+    [Header("Player")]
+    public string playerTag = "Player";
+    public string playerDataFileName = "PlayerData";
     public MovementSettings movementSettings;
+
+    [Header("Pools")]
+    public string poolTag = "Pool";
+    public float poolWaitDuration = 3;
+
+    [Header("Collectables")]
+    public string collectableBallTag = "CollectableBall";
 }
 
 [Serializable]

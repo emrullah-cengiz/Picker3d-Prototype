@@ -11,7 +11,7 @@ namespace Assets._Game.Scripts.Signals
         public UnityEvent onLevelStarted;
         public UnityEvent<bool> onLevelCompleted;
 
-        public UnityEvent onLevelSpawned;
+        public UnityEvent<LevelData> onLevelSpawned;
 
 
         public UnityEvent<PlayerData> onPlayerDataLoaded;

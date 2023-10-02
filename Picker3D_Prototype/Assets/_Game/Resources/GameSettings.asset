@@ -16,9 +16,14 @@ MonoBehaviour:
   uiPanelPrefabNameFormat: Panel_{0}
   levelPrefabsResourcePath: Prefabs/Levels
   levelPrefabNameFormat: Level_{0}
+  levelDataResourcePath: Data/Levels
+  levelDataNameFormat: Level_{0}
   maxLevelNumber: 10
+  playerTag: Player
   playerDataFileName: PlayerData
   movementSettings:
     ZMovementSpeed: 3
     XMovementSpeed: 0.1
     XClamp: 2
+  poolTag: Pool
+  collectableBallTag: Ball

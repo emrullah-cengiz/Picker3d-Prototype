@@ -17,7 +17,8 @@ namespace Assets._Game.Scripts.Controllers
         protected override void ConfigureSubscriptions(bool status)
         {
             CoreSignals.Instance?.onPlayerDataLoaded.Subscribe(OnPlayerDataLoaded, status);
-            CoreSignals.Instance?.onLevelStarted.Subscribe(StartLevel, status);
+
+            //CoreSignals.Instance?.onLevelSpawned.Subscribe(OnLevelSpawned, status);
             CoreSignals.Instance?.onLevelCompleted.Subscribe(OnLevelCompleted, status);
         }
 
@@ -33,19 +34,25 @@ namespace Assets._Game.Scripts.Controllers
             string levelPath = Path.Combine(GameSettings.Instance.levelPrefabsResourcePath,
                                           string.Format(GameSettings.Instance.levelPrefabNameFormat, _currentLevelNumber));
 
-            var level = Resources.Load<Transform>(levelPath);
+            string levelDataPath = Path.Combine(GameSettings.Instance.levelDataResourcePath,
+                                          string.Format(GameSettings.Instance.levelDataNameFormat, _currentLevelNumber));
 
+
+            var level = Resources.Load<Transform>(levelPath);
             Instantiate(level, _levelContainer);
 
-            CoreSignals.Instance.onLevelSpawned?.Invoke();
+            var levelData = Resources.Load<LevelData>(levelDataPath);
+
+            CoreSignals.Instance.onLevelSpawned?.Invoke(levelData);
         }
+
+
+        //private void OnLevelSpawned(LevelData levelData)
+        //{
+
+        //}
 
         private void OnLevelCompleted(bool isSuccess)
-        {
-
-        }
-
-        private void StartLevel()
         {
 
         }

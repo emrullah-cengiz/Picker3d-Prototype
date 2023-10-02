@@ -1,4 +1,5 @@
 ﻿using Assets._Game.Scripts.Actors;
+using Assets._Game.Scripts.Data;
 using Assets._Game.Scripts.Signals;
 using UnityEngine;
 
@@ -11,10 +12,10 @@ namespace Assets._Game.Scripts.Managers
 
         protected override void ConfigureSubscriptions(bool status)
         {
-            CoreSignals.Instance.onLevelSpawned.Subscribe(OnLevelSpawned, status);
+            CoreSignals.Instance?.onLevelSpawned.Subscribe(OnLevelSpawned, status);
         }
 
-        private void OnLevelSpawned()
+        private void OnLevelSpawned(LevelData levelData)
         {
             _playerObject.transform.localPosition = Vector3.zero;
         }
